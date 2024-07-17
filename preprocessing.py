@@ -60,12 +60,15 @@ def process_eeg(file_path, output_folder):
 
     # Perform ICA for eye blinks
     raw = apply_ica(raw, ['E1', 'E2'], 'EOG')
+    print('ICA complete for eye blink removal')
 
     # Perform ICA for cardiogenic artifacts
     raw = apply_ica(raw, ['ECG 1', 'ECG 2', 'ECG 3'], 'ECG')
+    print('ICA complete for cardiogenic artifact removal')
 
     # Perform ICA for arm movements EXAMPLE, we can add or remove whatever for EMG signals
-    raw = apply_ica(raw, ['arm/L', 'arm/R'], 'emg')
+    raw = apply_ica(raw, ['Arm/L', 'Arm/R', 'Leg/L', 'Leg/R'], 'EMG')
+    print('ICA complete for EMG recorded movement removal')
 
     # Save the cleaned data to a new .edf file
     base_name = os.path.basename(file_path)
